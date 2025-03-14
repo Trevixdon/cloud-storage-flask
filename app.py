@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 import logging
 
-app = Flask(__name__)
+# Explicitly define the template and static folders
+app = Flask(__name__, template_folder="templates", static_folder="static")
 logging.basicConfig(level=logging.INFO)
 
 # In-memory list to simulate file storage
@@ -11,6 +12,7 @@ files = []
 def index():
     try:
         if request.method == 'POST':
+            # Simulate file upload by capturing a filename from the form
             filename = request.form.get('filename')
             if filename:
                 files.append(filename)
@@ -44,6 +46,6 @@ def delete(index):
         app.logger.error("Error in delete route: %s", e)
         return "Internal Server Error", 500
 
-# When deployed on Vercel, __name__ will not be '__main__'
+# Do not call app.run() when deploying on Vercel
 if __name__ == '__main__':
     app.run(debug=True)
