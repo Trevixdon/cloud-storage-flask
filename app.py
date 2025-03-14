@@ -1,18 +1,18 @@
 from flask import Flask, render_template, request, redirect, url_for
 import logging
 
-# Explicitly define the template and static folders
+
 app = Flask(__name__, template_folder="templates", static_folder="static")
 logging.basicConfig(level=logging.INFO)
 
-# In-memory list to simulate file storage
+
 files = []
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     try:
         if request.method == 'POST':
-            # Simulate file upload by capturing a filename from the form
+          
             filename = request.form.get('filename')
             if filename:
                 files.append(filename)
